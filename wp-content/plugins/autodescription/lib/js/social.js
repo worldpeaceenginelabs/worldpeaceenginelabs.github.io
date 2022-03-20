@@ -1,0 +1,32 @@
+'use strict';window.tsfSocial=function(){const inputInstances=new Map();const states={};const _tickState=(group,part)=>{switch(part){case 'addAdditions':let titleRef=getInputInstance(group).refs.title.dataset?.for;titleRef&&tsfTitle.enqueueUnregisteredInputTrigger(titleRef);break;default:break;}}
+const getStateOf=(group,part)=>part?states[group]?.[part]:states[group];const updateStateOf=(group,part,value)=>{if(states[group][part]===value)return;states[group][part]=value;_tickState(group,part);}
+const updateStateAll=(part,value,except)=>{except=Array.isArray(except)?except:[except];inputInstances.forEach(({group,inputs,refs})=>{if(except.includes(group))return;updateStateOf(group,part,value);});}
+const setInputInstance=(group,titleRef,descRef)=>{const _getElement=type=>document.querySelector(`[data-tsf-social-group="${group}"][data-tsf-social-type="${type}"]`);const inputs={ogTitle:_getElement('ogTitle'),twTitle:_getElement('twTitle'),ogDesc:_getElement('ogDesc'),twDesc:_getElement('twDesc'),}
+const refs={titleInput:document.getElementById(titleRef),descInput:document.getElementById(descRef),title:document.getElementById(`tsf-title-reference_${titleRef}`),titleNa:document.getElementById(`tsf-title-noadditions-reference_${titleRef}`),desc:document.getElementById(`tsf-description-reference_${descRef}`),}
+inputInstances.set(group,{group,inputs,refs});states[group]={defaults:{ogTitle:'',twTitle:'',ogDesc:'',twDesc:'',},inputLocks:{ogTitle:false,twTitle:false,ogDesc:false,twDesc:false,},placeholderLocks:{ogTitle:false,twTitle:false,ogDesc:false,twDesc:false,},}
+_loadTitleActions(group);_loadDescriptionActions(group);return getInputInstance(group);}
+const getInputInstance=group=>inputInstances.get(group);const _loadTitleActions=group=>{const{inputs,refs}=getInputInstance(group);const getState=part=>getStateOf(group,part);function*_generateActiveValue(what){const locks=getState('inputLocks'),phLocks=getState('placeholderLocks');switch(what){case 'twitter':yield locks.twTitle?getState('defaults').twTitle:inputs.twTitle.value.trim();if(locks.twTitle||phLocks.twTitle){yield getState('defaults').twTitle;break;}
+case 'og':yield locks.ogTitle?getState('defaults').ogTitle:inputs.ogTitle.value.trim();if(locks.ogTitle||phLocks.ogTitle){yield getState('defaults').ogTitle;break;}
+case 'meta':case 'ref':if(getState('addAdditions')){yield refs.title.innerHTML;}else{yield refs.titleNa.innerHTML;}
+break;}}
+const getActiveValue=what=>{const generator=_generateActiveValue(what);let val='';while('undefined'!==typeof val&&!val.length){val=generator.next().value;if(val?.length)
+val=tsf.sDoubleSpace(tsf.sTabs(tsf.sSingleLine(val)));}
+return val?.length?val:'';}
+const setPlaceholders=()=>{const locks=getState('inputLocks'),phLocks=getState('placeholderLocks');inputs.ogTitle.placeholder=locks.ogTitle||phLocks.ogTitle?tsf.decodeEntities(getState('defaults').ogTitle):tsf.decodeEntities(getActiveValue('meta'));inputs.twTitle.placeholder=locks.twTitle||phLocks.twTitle?tsf.decodeEntities(getState('defaults').twTitle):tsf.decodeEntities(getActiveValue('og'));}
+const updateCounter=(target,text,type)=>{let counter=document.getElementById(`${target.id}_chars`);counter&&tsfC.updateCharacterCounter({e:counter,text:text,field:'title',type:type,});}
+const updateSocialCounters=()=>{updateCounter(inputs.ogTitle,getActiveValue('og'),'opengraph');updateCounter(inputs.twTitle,getActiveValue('twitter'),'twitter');}
+let updateRefTitleBuffer=void 0;const updateRefTitle=()=>{clearTimeout(updateRefTitleBuffer);updateRefTitleBuffer=setTimeout(()=>{setPlaceholders();updateSocialCounters();},1000/60);};refs.title.addEventListener('change',updateRefTitle);refs.titleNa.addEventListener('change',updateRefTitle);let updateTitleBuffer=void 0;const updateTitle=()=>{clearTimeout(updateTitleBuffer);updateTitleBuffer=setTimeout(()=>{setPlaceholders();updateSocialCounters();},1000/60);}
+inputs.ogTitle.addEventListener('input',updateTitle);inputs.twTitle.addEventListener('input',updateTitle);}
+const _loadDescriptionActions=group=>{const{inputs,refs}=getInputInstance(group);const getState=part=>getStateOf(group,part);function*_generateActiveValue(what,context){const locks=getState('inputLocks'),phLocks=getState('placeholderLocks');switch(what){case 'twitter':yield locks.twDesc?getState('defaults').twDesc:inputs.twDesc.value.trim();if(locks.twDesc||phLocks.twDesc){yield getState('defaults').twDesc;break;}
+case 'og':yield locks.ogDesc?getState('defaults').ogDesc:inputs.ogDesc.value.trim();if(locks.ogDesc||phLocks.ogDesc){yield getState('defaults').ogDesc;break;}
+case 'meta':if(!refs.descInput?.value.length){if('twitter'===context){yield getState('defaults').twDesc;}else if('og'===context){yield getState('defaults').ogDesc;}}
+case 'ref':yield refs.desc.innerHTML;break;}}
+const getActiveValue=(what,context)=>{const generator=_generateActiveValue(what,context);let val='';while('undefined'!==typeof val&&!val.length){val=generator.next().value;if(val?.length)
+val=tsf.sDoubleSpace(tsf.sTabs(tsf.sSingleLine(val)));}
+return val?.length?val:'';}
+const setPlaceholders=()=>{const locks=getState('inputLocks'),phLocks=getState('placeholderLocks');inputs.ogDesc.placeholder=locks.ogDesc||phLocks.ogDesc?tsf.decodeEntities(getState('defaults').ogDesc):tsf.decodeEntities(getActiveValue('meta','og'));inputs.twDesc.placeholder=locks.twDesc||phLocks.twDesc?tsf.decodeEntities(getState('defaults').twDesc):tsf.decodeEntities(getActiveValue('og','twitter'));}
+const updateCounter=(target,text,type)=>{let counter=document.getElementById(`${target.id}_chars`);counter&&tsfC.updateCharacterCounter({e:counter,text:text,field:'description',type:type,});}
+const updateSocialCounters=()=>{updateCounter(inputs.ogDesc,getActiveValue('og','og'),'opengraph');updateCounter(inputs.twDesc,getActiveValue('twitter','twitter'),'twitter');}
+let updateRefDescBuffer=void 0;const updateRefDesc=()=>{clearTimeout(updateRefDescBuffer);updateRefDescBuffer=setTimeout(()=>{setPlaceholders();updateSocialCounters();},1000/60);};refs.desc.addEventListener('change',updateRefDesc);let updateDescBuffer=void 0;const updateDesc=()=>{clearTimeout(updateDescBuffer);updateDescBuffer=setTimeout(()=>{setPlaceholders();updateSocialCounters();},1000/60);}
+inputs.ogDesc.addEventListener('input',updateDesc);inputs.twDesc.addEventListener('input',updateDesc);}
+return{getStateOf,updateStateOf,updateStateAll,setInputInstance,getInputInstance,};}();

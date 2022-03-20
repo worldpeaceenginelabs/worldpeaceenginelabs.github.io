@@ -1,0 +1,51 @@
+'use strict';(function(){var isSlow=null;var submittedValues=[];var speedTestSettings={maxTime:3000,payloadSize:100*1024,};function getPayload(){var data='';for(var i=0;i<speedTestSettings.payloadSize;++i){data+=String.fromCharCode(Math.round(Math.random()*36+64));}
+return data;}
+function speedTest(next){if(null!==isSlow){setTimeout(next);return;}
+var data=getPayload();var start=new Date;wp.ajax.post({action:'wpforms_file_upload_speed_test',data:data,}).then(function(){var delta=new Date-start;isSlow=delta>=speedTestSettings.maxTime;next();}).fail(function(){isSlow=true;next();});}
+function toggleLoadingMessage($form){return function(){if(!$form.find('.wpforms-uploading-in-progress-alert').length){$form.find('.wpforms-submit-container').before('<div class="wpforms-error-alert wpforms-uploading-in-progress-alert">'+window.wpforms_file_upload.loading_message+'</div>');}};}
+function toggleSubmit(dz){if(dz.loading<0){dz.loading=0;}
+var $form=jQuery(dz.element).closest('form'),$btn=$form.find('.wpforms-submit'),errors=dz.getFilesWithStatus('error'),handler=toggleLoadingMessage($form),disabled=dz.loading>0||errors.length>0;if(disabled){$btn.prop('disabled',true);if(!$form.find('.wpforms-submit-overlay').length){$btn.parent().addClass('wpforms-submit-overlay-container');$btn.parent().append('<div class="wpforms-submit-overlay"></div>');$form.find('.wpforms-submit-overlay').css('width',$btn.outerWidth()+'px');$form.find('.wpforms-submit-overlay').css('height',$btn.parent().outerHeight()+'px');$form.find('.wpforms-submit-overlay').on('click',handler);}}else{$btn.prop('disabled',false);$form.find('.wpforms-submit-overlay').off('click',handler);$form.find('.wpforms-submit-overlay').remove();$btn.parent().removeClass('wpforms-submit-overlay-container');if($form.find('.wpforms-uploading-in-progress-alert').length){$form.find('.wpforms-uploading-in-progress-alert').remove();}}}
+function parseJSON(str){try{return JSON.parse(str);}catch(e){return false;}}
+function onlyWithLength(el){return el.length>0;}
+function onlyPositive(el){return el;}
+function getXHR(el){return el.chunkResponse||el.xhr;}
+function getResponseText(el){return typeof el==='string'?el:el.responseText;}
+function getData(el){return el.data;}
+function getValue(files){return files.map(getXHR).filter(onlyPositive).map(getResponseText).filter(onlyWithLength).map(parseJSON).filter(onlyPositive).map(getData);}
+function sending(dz,data){return function(file,xhr,formData){if(file.size>this.dataTransfer.postMaxSize){xhr.send=function(){};file.accepted=false;file.processing=false;file.status='rejected';file.previewElement.classList.add('dz-error');file.previewElement.classList.add('dz-complete');return;}
+Object.keys(data).forEach(function(key){formData.append(key,data[key]);});};}
+function convertFilesToValue(files,dz){if(!submittedValues[dz.dataTransfer.formId]||!submittedValues[dz.dataTransfer.formId][dz.dataTransfer.fieldId]){return files.length?JSON.stringify(files):'';}
+files.push.apply(files,submittedValues[dz.dataTransfer.formId][dz.dataTransfer.fieldId]);return JSON.stringify(files);}
+function getInput(dz){return jQuery(dz.element).parents('.wpforms-field-file-upload').find('input[name='+dz.dataTransfer.name+']');}
+function updateInputValue(dz){var $input=getInput(dz);$input.val(convertFilesToValue(getValue(dz.files),dz)).trigger('input');if(typeof jQuery.fn.valid!=='undefined'){$input.valid();}}
+function complete(dz){return function(){dz.loading=dz.loading||0;dz.loading--;toggleSubmit(dz);updateInputValue(dz);};}
+function addErrorMessage(file,errorMessage){if(file.isErrorNotUploadedDisplayed){return;}
+var span=document.createElement('span');span.innerText=errorMessage.toString();span.setAttribute('data-dz-errormessage','');file.previewElement.querySelector('.dz-error-message').appendChild(span);}
+function confirmChunksFinishUpload(dz){return function confirm(file){if(!file.retries){file.retries=0;}
+if('error'===file.status){return;}
+function retry(){file.retries++;if(file.retries===3){addErrorMessage(file,window.wpforms_file_upload.errors.file_not_uploaded);return;}
+setTimeout(function(){confirm(file);},5000*file.retries);}
+function fail(response){var hasSpecificError=response.responseJSON&&response.responseJSON.success===false&&response.responseJSON.data;if(hasSpecificError){addErrorMessage(file,response.responseJSON.data);}else{retry();}}
+function complete(response){file.chunkResponse=JSON.stringify({data:response});dz.loading=dz.loading||0;dz.loading--;toggleSubmit(dz);updateInputValue(dz);}
+wp.ajax.post(jQuery.extend({action:'wpforms_file_chunks_uploaded',form_id:dz.dataTransfer.formId,field_id:dz.dataTransfer.fieldId,name:file.name,},dz.options.params.call(dz,null,null,{file:file,index:0}))).then(complete).fail(fail);dz.processQueue();};}
+function toggleMessage(dz){setTimeout(function(){var validFiles=dz.files.filter(function(file){return file.accepted;});if(validFiles.length>=dz.options.maxFiles){dz.element.querySelector('.dz-message').classList.add('hide');}else{dz.element.querySelector('.dz-message').classList.remove('hide');}},0);}
+function validatePostMaxSizeError(file,dz){setTimeout(function(){if(file.size>=dz.dataTransfer.postMaxSize){var errorMessage=window.wpforms_file_upload.errors.post_max_size;if(!file.isErrorNotUploadedDisplayed){file.isErrorNotUploadedDisplayed=true;errorMessage=window.wpforms_file_upload.errors.file_not_uploaded+' '+errorMessage;addErrorMessage(file,errorMessage);}}},1);}
+function initFileUpload(dz,file){wp.ajax.post(jQuery.extend({action:'wpforms_upload_chunk_init',form_id:dz.dataTransfer.formId,field_id:dz.dataTransfer.fieldId,name:file.name,slow:isSlow,},dz.options.params.call(dz,null,null,{file:file,index:0}))).then(function(response){for(var key in response){dz.options[key]=response[key];}
+if(response.dzchunksize){dz.options.chunkSize=parseInt(response.dzchunksize,10);file.upload.totalChunkCount=Math.ceil(file.size/dz.options.chunkSize);}
+dz.processQueue();}).fail(function(response){file.status='error';if(!file.xhr){var errorMessage=window.wpforms_file_upload.errors.file_not_uploaded+' '+window.wpforms_file_upload.errors.default_error;file.previewElement.classList.add('dz-processing','dz-error','dz-complete');addErrorMessage(file,errorMessage);}
+dz.processQueue();});}
+function addedFile(dz){return function(file){if(file.size>=dz.dataTransfer.postMaxSize){validatePostMaxSizeError(file,dz);}else{speedTest(function(){initFileUpload(dz,file);});}
+dz.loading=dz.loading||0;dz.loading++;toggleSubmit(dz);toggleMessage(dz);};}
+function removeFromServer(file,dz){wp.ajax.post({action:'wpforms_remove_file',file:file,form_id:dz.dataTransfer.formId,field_id:dz.dataTransfer.fieldId,});}
+function removedFile(dz){return function(file){toggleMessage(dz);var json=file.chunkResponse||(file.xhr||{}).responseText;if(json){var object=parseJSON(json);if(object&&object.data&&object.data.file){removeFromServer(object.data.file,dz);}}
+if(Object.prototype.hasOwnProperty.call(file,'isDefault')&&file.isDefault){submittedValues[dz.dataTransfer.formId][dz.dataTransfer.fieldId].splice(file.index,1);dz.options.maxFiles++;removeFromServer(file.file,dz);}
+updateInputValue(dz);dz.loading=dz.loading||0;dz.loading--;toggleSubmit(dz);};}
+function error(dz){return function(file,errorMessage){if(file.isErrorNotUploadedDisplayed){return;}
+if(typeof errorMessage==='object'){errorMessage=Object.prototype.hasOwnProperty.call(errorMessage,'data')&&typeof errorMessage.data==='string'?errorMessage.data:'';}
+errorMessage=errorMessage!=='0'?errorMessage:'';file.isErrorNotUploadedDisplayed=true;file.previewElement.querySelectorAll('[data-dz-errormessage]')[0].textContent=window.wpforms_file_upload.errors.file_not_uploaded+' '+errorMessage;};}
+function presetSubmittedData(dz){var files=parseJSON(getInput(dz).val());if(!files||!files.length){return;}
+submittedValues[dz.dataTransfer.formId]=[];submittedValues[dz.dataTransfer.formId][dz.dataTransfer.fieldId]=JSON.parse(JSON.stringify(files));files.forEach(function(file,index){file.isDefault=true;file.index=index;if(file.type.match(/image.*/)){dz.displayExistingFile(file,file.url);return;}
+dz.emit('addedfile',file);dz.emit('complete',file);});dz.options.maxFiles=dz.options.maxFiles-files.length;}
+function dropZoneInit($el){var formId=parseInt($el.dataset.formId,10);var fieldId=parseInt($el.dataset.fieldId,10)||0;var maxFiles=parseInt($el.dataset.maxFileNumber,10);var acceptedFiles=$el.dataset.extensions.split(',').map(function(el){return '.'+el;}).join(',');var dz=new window.Dropzone($el,{url:window.wpforms_file_upload.url,addRemoveLinks:true,chunking:true,forceChunking:true,retryChunks:true,chunkSize:parseInt($el.dataset.fileChunkSize,10),paramName:$el.dataset.inputName,parallelChunkUploads:!!($el.dataset.parallelUploads||'').match(/^true$/i),parallelUploads:parseInt($el.dataset.maxParallelUploads,10),autoProcessQueue:false,maxFilesize:(parseInt($el.dataset.maxSize,10)/(1024*1024)).toFixed(2),maxFiles:maxFiles,acceptedFiles:acceptedFiles,dictMaxFilesExceeded:window.wpforms_file_upload.errors.file_limit.replace('{fileLimit}',maxFiles),dictInvalidFileType:window.wpforms_file_upload.errors.file_extension,dictFileTooBig:window.wpforms_file_upload.errors.file_size,});dz.dataTransfer={postMaxSize:$el.dataset.maxSize,name:$el.dataset.inputName,formId:formId,fieldId:fieldId,};presetSubmittedData(dz);dz.on('sending',sending(dz,{action:'wpforms_upload_chunk',form_id:formId,field_id:fieldId,}));dz.on('addedfile',addedFile(dz));dz.on('removedfile',removedFile(dz));dz.on('complete',confirmChunksFinishUpload(dz));dz.on('error',error(dz));return dz;}
+function ready(){window.wpforms=window.wpforms||{};window.wpforms.dropzones=[].slice.call(document.querySelectorAll('.wpforms-uploader')).map(dropZoneInit);}
+var wpformsModernFileUpload={init:function(){if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',ready);}else{ready();}},};wpformsModernFileUpload.init();window.wpformsModernFileUpload=wpformsModernFileUpload;}());

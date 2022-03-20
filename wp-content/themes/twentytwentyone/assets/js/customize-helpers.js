@@ -1,0 +1,2 @@
+function twentytwentyoneGetHexLum(hex){var rgb=twentytwentyoneGetRgbFromHex(hex);return Math.round((0.2126*rgb.r)+(0.7152*rgb.g)+(0.0722*rgb.b));}
+function twentytwentyoneGetRgbFromHex(hex){var shorthandRegex=/^#?([a-f\d])([a-f\d])([a-f\d])$/i,result;hex=hex.replace(shorthandRegex,function(m,r,g,b){return r.toString()+r.toString()+g.toString()+g.toString()+b.toString()+b.toString();});result=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);return result?{r:parseInt(result[1],16),g:parseInt(result[2],16),b:parseInt(result[3],16)}:null;}

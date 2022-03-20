@@ -1,0 +1,92 @@
+# Translation of Plugins - Smart User Slug Hider - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Smart User Slug Hider - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-03-03 18:53:06+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - Smart User Slug Hider - Stable (latest release)\n"
+
+#: inc/ppf/ppf-admin.php:447
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Du hast nicht die erforderlichen Rechte, um auf diese Seite zuzugreifen."
+
+#: inc/class-smart-user-slug-hider-admin.php:145
+msgid "Information"
+msgstr "Informationen"
+
+#: inc/class-smart-user-slug-hider-admin.php:72
+msgid "Info"
+msgstr "Info"
+
+#: inc/class-smart-user-slug-hider-admin.php:40
+msgid "Yes sure"
+msgstr "Ja sicher"
+
+#: inc/class-smart-user-slug-hider-admin.php:35
+msgid "Never show again"
+msgstr "Nicht mehr anzeigen"
+
+#: inc/class-smart-user-slug-hider-admin.php:34
+msgid "Ask me later"
+msgstr "Später nachfragen"
+
+#: inc/class-smart-user-slug-hider-admin.php:33
+msgid "Not really"
+msgstr "Nicht so richtig"
+
+#: inc/class-smart-user-slug-hider-admin.php:128
+msgid "Authors Facebook Page"
+msgstr "Facebook Seite des Autors"
+
+#: inc/class-smart-user-slug-hider-admin.php:123
+msgid "Authors Website"
+msgstr "Website des Autors"
+
+#: inc/class-smart-user-slug-hider-admin.php:113
+msgid "WordPress.org Plugin Page"
+msgstr "Website des Autors"
+
+#: inc/class-smart-user-slug-hider-admin.php:107
+msgid "Please rate Plugin"
+msgstr "Bitte bewerte das Plugin"
+
+#. Author of the plugin
+msgid "Peter Raschendorfer"
+msgstr "Peter Raschendorfer"
+
+#: inc/class-smart-user-slug-hider-admin.php:118
+msgid "Support"
+msgstr "Support"
+
+#. Author URI of the plugin
+msgid "https://petersplugins.com"
+msgstr "https://petersplugins.com"
+
+#. Plugin URI of the plugin
+msgid "https://petersplugins.com/free-wordpress-plugins/smart-user-slug-hider"
+msgstr "https://petersplugins.com/free-wordpress-plugins/smart-user-slug-hider"
+
+#. Description of the plugin
+msgid "Hide usernames in author pages URLs to enhance security"
+msgstr "Verstecke Benutzernamen in Autoren-Seiten-URLs um die Sicherheit zu erhöhen"
+
+#. Plugin Name of the plugin
+msgid "Smart User Slug Hider"
+msgstr "Smart User Slug Hider"
+
+#: inc/class-smart-user-slug-hider-admin.php:74
+msgid "There are no settings."
+msgstr "Es gibt keine Einstellungen."
+
+#: inc/class-smart-user-slug-hider-admin.php:74
+msgid "This Plugin replaces user names with 16 digits coded strings."
+msgstr "Dieses Plugin ersetzt Usernamen durch 16-stellige Codes."
+
+#: inc/class-smart-user-slug-hider-admin.php:145
+msgid "Please rate plugin"
+msgstr "Bitte bewerte das Plugin "

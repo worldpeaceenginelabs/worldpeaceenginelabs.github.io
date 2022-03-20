@@ -1,0 +1,64 @@
+# Translation of Plugins - Floating Notification Bar, Sticky Menu on Scroll, and Sticky Header for Any Theme &#8211; myStickymenu - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Floating Notification Bar, Sticky Menu on Scroll, and Sticky Header for Any Theme &#8211; myStickymenu - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-05-26 11:25:36+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - Floating Notification Bar, Sticky Menu on Scroll, and Sticky Header for Any Theme &#8211; myStickymenu - Stable (latest release)\n"
+
+#: mystickymenu.php:269
+msgid "Sticky Class"
+msgstr "Sticky Klasse"
+
+#: mystickymenu.php:355
+msgid "Sticky z-index"
+msgstr "Sticky z-Index"
+
+#: mystickymenu.php:408
+msgid "Sticky Background Color"
+msgstr "Sticky Hintergrundfarbe"
+
+#: mystickymenu.php:433
+msgid "numbers 1-100."
+msgstr "Ein Wert zwischen 1 und 100"
+
+#. Plugin Name of the plugin
+msgid "myStickymenu"
+msgstr "myStickymenu"
+
+#: mystickymenu.php:432
+msgid "Sticky Opacity"
+msgstr "Sticky Deckkraft"
+
+#: mystickymenu.php:561
+msgid "Disable CSS style"
+msgstr "Deaktiviere CSS-Stil"
+
+#: mystickymenu.php:386
+msgid "Make visible on Scroll"
+msgstr "beim Scrollen sichtbar machen"
+
+#: mystickymenu.php:398
+msgid "Make visible on Scroll at homepage"
+msgstr "beim Scrollen auf der Homepage sichtbar machen"
+
+#: mystickymenu.php:376
+msgid "Disable at Small Screen Sizes"
+msgstr "bei kleinen Bildschirmgrößen deaktivieren"
+
+#: mystickymenu.php:565
+msgid "Use this option if you plan to include CSS Style manually"
+msgstr "Verwende diese Option, wenn du den CSS-Stil manuell einfügen möchtest"
+
+#: mystickymenu.php:361
+msgid "Fade or slide effect"
+msgstr "Überblend- oder Slide-Effekt"
+
+#: mystickymenu.php:417
+msgid "Sticky Transition Time"
+msgstr "Sticky Dauer der Überblendung"

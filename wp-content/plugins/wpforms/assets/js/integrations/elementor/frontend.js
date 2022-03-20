@@ -1,0 +1,4 @@
+'use strict';var WPFormsElementorFrontend=window.WPFormsElementorFrontend||(function(document,window,$){var app={init:function(){app.events();},events:function(){$(document).on('elementor/popup/show',function(event,id,instance){var $modal=$('#elementor-popup-modal-'+id),$form=$modal.find('.wpforms-form');if(!$form.length){return;}
+app.initFields($form);});},initFields:function($form){wpforms.ready();if('undefined'!==typeof wpformsModernFileUpload){wpformsModernFileUpload.init();}
+if('undefined'!==typeof wpformsRecaptchaLoad){if('recaptcha'===wpformsElementorVars.captcha_provider&&'v3'===wpformsElementorVars.recaptcha_type){if('undefined'!==typeof grecaptcha){grecaptcha.ready(wpformsRecaptchaLoad);}}else{wpformsRecaptchaLoad();}}
+$(document).trigger('wpforms_elementor_form_fields_initialized',[$form]);},};return app;}(document,window,jQuery));WPFormsElementorFrontend.init();
