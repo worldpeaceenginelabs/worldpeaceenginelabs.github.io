@@ -1,5 +1,0 @@
-/*!elementor-pro - v3.4.2 - 12-10-2021*/(self["webpackChunkelementor_pro"]=self["webpackChunkelementor_pro"]||[]).push([["code-highlight"],{"../modules/code-highlight/assets/js/frontend/handler.js":/*!***************************************************************!*\
-!*** ../modules/code-highlight/assets/js/frontend/handler.js ***!
-\***************************************************************/((__unused_webpack_module,exports)=>{"use strict";Object.defineProperty(exports,"__esModule",({value:true}));exports.default=void 0;class codeHighlightHandler extends elementorModules.frontend.handlers.Base{onInit(...args){super.onInit(...args);Prism.highlightAllUnder(this.$element[0],false);}
-onElementChange(){Prism.highlightAllUnder(this.$element[0],false);}}
-exports.default=codeHighlightHandler;})}]);
