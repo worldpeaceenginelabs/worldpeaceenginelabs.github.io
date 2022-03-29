@@ -12,7 +12,7 @@
 	<atom:link href="https://worldpeaceenginelabs.org/feed/" rel="self" type="application/rss+xml" />
 	<link>https://worldpeaceenginelabs.org/</link>
 	<description>PEACE THROUGH TECHNOLOGY</description>
-	<lastBuildDate>Thu, 30 Sep 2021 20:55:12 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 29 Mar 2022 08:38:09 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,6 +28,22 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>We are paving the way to TRUE P2P</title>
+		<link>https://worldpeaceenginelabs.org/we-are-paving-the-way-to-true-p2p/</link>
+		
+		<dc:creator><![CDATA[Bo]]></dc:creator>
+		<pubDate>Tue, 29 Mar 2022 08:30:30 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://worldpeaceenginelabs.org/?p=9188</guid>
+
+					<description><![CDATA[Lets redecentralize the web - The Revolution Will Not Be Televised...]]></description>
+										<content:encoded><![CDATA[<p>Mishmesh is the result of a really cool, days long conversation of Dreader and me. He had already something similar in mind for some time, so great we found each other. My special thanks to him for sharing his whole decentralization experience, making the TRUE-P2P transport layer a 70 rows application (for now) with around 30 rows for each adapter. https://github.com/worldpeaceenginelabs/</p>
+<p><a href="https://worldpeaceenginelabs.org/we-are-paving-the-way-to-true-p2p/" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>Visa Unveils &#8216;Layer 2&#8217; Network for Stablecoins and Central Bank Currencies</title>
 		<link>https://worldpeaceenginelabs.org/visa-universal-payment-channel-hub/</link>
 		
