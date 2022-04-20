@@ -12,7 +12,7 @@
 	<atom:link href="https://worldpeaceenginelabs.org/feed/" rel="self" type="application/rss+xml" />
 	<link>https://worldpeaceenginelabs.org/</link>
 	<description>PEACE THROUGH TECHNOLOGY</description>
-	<lastBuildDate>Thu, 31 Mar 2022 12:24:23 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 20 Apr 2022 23:42:14 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,6 +28,22 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>New  prototype made with Svelte</title>
+		<link>https://worldpeaceenginelabs.org/new-prototype-made-with-svelte/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 20 Apr 2022 23:39:53 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://worldpeaceenginelabs.org/?p=9351</guid>
+
+					<description><![CDATA[New  prototype made with Svelte]]></description>
+										<content:encoded><![CDATA[<p>browser-friendly JavaScript with small package sizes. Short: Cloud Atlas will become even faster, then it already was before. very easy to learn, has great documentation, and comes with great experience testimonials from developers. Short: If you are into HTML, CSS and Javascript, try Svelte. Svelte is less boilerplate, less coding, compiles your code down do the most efficient vanilla-js and it...</p>
+<p><a href="https://worldpeaceenginelabs.org/new-prototype-made-with-svelte/" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>We are paving the way to TRUE P2P</title>
 		<link>https://worldpeaceenginelabs.org/we-are-paving-the-way-to-true-p2p/</link>
 		
