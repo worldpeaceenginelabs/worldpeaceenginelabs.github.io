@@ -12,7 +12,7 @@
 	<atom:link href="https://worldpeaceenginelabs.org/feed/" rel="self" type="application/rss+xml" />
 	<link>https://worldpeaceenginelabs.org/</link>
 	<description>PEACE THROUGH TECHNOLOGY</description>
-	<lastBuildDate>Sun, 24 Apr 2022 16:43:41 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 13 Jun 2022 08:57:29 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,6 +28,22 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>We are releasing METAVERSE-GUN</title>
+		<link>https://worldpeaceenginelabs.org/elementor-9644/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 13 Jun 2022 08:51:24 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://worldpeaceenginelabs.org/?p=9644</guid>
+
+					<description><![CDATA[test]]></description>
+										<content:encoded><![CDATA[<p>World Peace Engine Labs just released the starter-kit for your own, decentralized, open-source Metaverse feat. GUN! Not an IT person? No worries, we got your back! Templates and UI are on its way!</p>
+<p><a href="https://worldpeaceenginelabs.org/elementor-9644/" rel="nofollow">Source</a></p>]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>New  prototype made with Svelte</title>
 		<link>https://worldpeaceenginelabs.org/new-prototype-made-with-svelte/</link>
 		
